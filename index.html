@@ -23,18 +23,19 @@
         <img src="./img/Close.svg" class="close-new-book-form">
         <h2>Book Information</h2>
         <form>
-            <input type="text" id="title" placeholder="Book Title">
-            <input type="text" id="author" placeholder="Author">
+            <input type="text" id="title" name="title" placeholder="Book Title">
+            <input type="text" id="author" placeholder="Author" name="author">
+            <input type="number" id="pages" placeholder="Number of Pages" name="pages">
             <label for="select">Reading status</label>
-            <select>
+            <select name="readingStatus">
                 <option value="read">Read</option>
                 <option value="reading">Reading</option>
                 <option value="pending">Pending</option>
             </select>
-            <input type="number" id="rating" placeholder="Book Rating">
+            <input type="number" id="rating" placeholder="Book Rating" name="rating">
             <label for="cover">Upload book cover</label>
-            <input type="file" id="cover">
-            <button>Add Book</button>
+            <input type="file" id="cover" name="cover">
+            <button type="submit">Add Book</button>
         </form>
     </dialog>
 

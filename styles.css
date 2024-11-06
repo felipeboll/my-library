@@ -76,6 +76,8 @@ body{
 .book-card-cover{
     width: 100%;
     border-radius: 8px;
+    max-height: 358px;
+    object-fit: cover;
 }
 
 .book-card-rate{
@@ -203,4 +205,17 @@ body{
     background: rgba(0, 118, 255, 0.10);
     color: var(--Blue-Secondary);
     cursor: pointer;
+}
+
+.remove-book-btn{
+    height: 28px;
+    width: 28px;
+    position: absolute;
+    margin: 10px 0px 0px 10px;
+    display: none;
+    cursor: pointer;
+}
+
+.book-card:hover .remove-book-btn{
+    display: block;
 }

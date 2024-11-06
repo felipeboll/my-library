@@ -1,7 +1,9 @@
 const ulBookList = document.querySelector('.book-list');
 const newBookBtn = document.querySelector('.add-new-book');
-const newBookForm = document.getElementById('new-book-form');
+const newBookForm = document.querySelector('#new-book-form form');
+const newBookFormModal = document.getElementById('new-book-form');
 const closeNewBookForm = document.querySelector('.close-new-book-form');
+const removeBookBtn = document.querySelector('.remove-book-btn');
 
 const myLibrary = [];
 
@@ -30,6 +32,11 @@ function displayBooks(Book){
 
     const li = document.createElement('li');
     li.classList.add('book-card');
+    
+    const removeBook = document.createElement('img');
+    removeBook.setAttribute('src', './img/removebook.svg');
+    removeBook.classList.add('remove-book-btn');
+    removeBook.setAttribute('data-index', myLibrary.indexOf(Book));
 
     const img = document.createElement('img');
     img.classList.add('book-card-cover');
@@ -75,6 +82,7 @@ function displayBooks(Book){
     select.append(optionReading);
     select.append(optionRead);
     
+    li.append(removeBook);
     li.append(img);
     li.append(bookRate);
     li.append(bookTitle);
@@ -88,9 +96,37 @@ function displayBooks(Book){
 }
 
 newBookBtn.addEventListener('click', ()=>{
-    newBookForm.showModal();
+    newBookFormModal.showModal();
 });
 
 closeNewBookForm.addEventListener('click', ()=>{
-    newBookForm.close();
+    newBookFormModal.close();
 });
+
+newBookForm.addEventListener('submit', (event)=>{
+    event.preventDefault();
+
+    formData = new FormData(newBookForm);
+
+    const book = new Book();
+
+    book.cover = URL.createObjectURL(formData.get("cover"));
+    book.title = formData.get("title");
+    book.author = formData.get("author");
+    book.readingStatus = formData.get("readingStatus");
+    book.rate = formData.get("rating");
+    book.numberOfPages = formData.get("pages");
+    
+    console.log(book.cover);
+
+    myLibrary.push(book);
+    displayBooks(book);
+
+    newBookForm.reset();
+    newBookFormModal.close();
+
+});
+
+removeBookBtn.addEventListener('click', (event)=>{
+    console.log(event.target);
+})
