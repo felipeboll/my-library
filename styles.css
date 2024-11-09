@@ -214,6 +214,7 @@ body{
     margin: 10px 0px 0px 10px;
     display: none;
     cursor: pointer;
+    background: rgba(0, 118, 255, 0);
 }
 
 .book-card:hover .remove-book-btn{

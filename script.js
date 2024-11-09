@@ -24,19 +24,17 @@ myLibrary.push(sapiens1);
 myLibrary.push(sapiens2);
 myLibrary.push(sapiens3);
 
-myLibrary.forEach(Book => {
-    displayBooks(Book);
-});
+myLibrary.forEach(displayBooks);
 
 function displayBooks(Book){
 
     const li = document.createElement('li');
     li.classList.add('book-card');
+    li.setAttribute('data-index', myLibrary.indexOf(Book));
     
     const removeBook = document.createElement('img');
     removeBook.setAttribute('src', './img/removebook.svg');
     removeBook.classList.add('remove-book-btn');
-    removeBook.setAttribute('data-index', myLibrary.indexOf(Book));
 
     const img = document.createElement('img');
     img.classList.add('book-card-cover');
@@ -81,7 +79,12 @@ function displayBooks(Book){
     select.append(optionPending);
     select.append(optionReading);
     select.append(optionRead);
-    
+
+    select.addEventListener('change', () => {
+        Book.readingStatus = select.value; // Atualiza o status do livro com o valor selecionado
+        console.log(`Novo status de leitura: ${Book.readingStatus}`);
+    });
+
     li.append(removeBook);
     li.append(img);
     li.append(bookRate);
@@ -127,6 +130,11 @@ newBookForm.addEventListener('submit', (event)=>{
 
 });
 
-removeBookBtn.addEventListener('click', (event)=>{
-    console.log(event.target);
+ulBookList.addEventListener('click', (event)=>{
+    if(event.target.closest('.remove-book-btn')){
+        const index = event.target.closest('.book-card').getAttribute('data-index');
+        myLibrary.splice(index, 1);
+        ulBookList.innerHTML = ''; // Limpando a lista para re-renderizar
+        myLibrary.forEach(displayBooks); // Re-exibindo todos os livros atualizados
+    }
 })
